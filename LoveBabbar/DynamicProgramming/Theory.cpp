@@ -23,6 +23,35 @@ unsigned long long bottomup(vector<unsigned long long> &dp, int n) {
     return dp[n];
 }
 
+int spaceoptimisation(int n){
+    int prev1=1;
+    int prev2=0;
+
+    for(int i=2;i<=n;i++){
+        int curr= prev1+prev2;
+        prev2=prev1;
+        prev1=curr;
+    }
+    return prev1;
+}
+
+// unsigned long long spaceoptimisation(int n) {
+//     if (n == 0) return 0;
+//     if (n == 1) return 1;
+
+//     unsigned long long prev2 = 0;
+//     unsigned long long prev1 = 1;
+
+//     for (int i = 2; i <= n; i++) {
+//         unsigned long long curr = prev1 + prev2;
+//         prev2 = prev1;
+//         prev1 = curr;
+//     }
+
+//     return prev1;
+// }
+
+
 int main() {
     int n;
     cin >> n;
@@ -35,7 +64,7 @@ int main() {
 
     vector<unsigned long long> dp2(n + 1, -1);
     auto start2 = high_resolution_clock::now();
-    auto result2 = topdown(dp2, n);
+    auto result2 = spaceoptimisation( n);
     auto end2 = high_resolution_clock::now();
     cout << "Top-down: " << result2 << ", Time: " << duration_cast<milliseconds>(end2 - start2).count() << " ms" << endl;
 
